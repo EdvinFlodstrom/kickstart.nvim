@@ -140,6 +140,18 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+vim.api.nvim_create_autocmd('BufWritePre', {
+  pattern = { '*.js', '*.ts' },
+  callback = function()
+    -- Run Prettier on the file being saved
+    local result = vim.fn.system('prettier --write --single-quote --jsx-single-quote --tab-width 8 ' .. vim.fn.expand '%:p')
+    print(result)
+
+    -- Reload the buffer to reflect Prettier's changes
+    vim.cmd 'edit!'
+  end,
+})
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
