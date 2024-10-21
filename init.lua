@@ -573,6 +573,10 @@ require('lazy').setup({
         -- JS/TS
         ts_ls = {},
 
+        -- JSON
+        jsonls = {},
+
+        -- Lua
         lua_ls = {
           -- cmd = {...},
           -- filetypes = { ...},
