@@ -140,12 +140,22 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
-vim.api.nvim_create_autocmd('BufWritePre', {
+-- Apply Prettier to JS/TS files upon saving
+vim.api.nvim_create_autocmd('BufWritePost', {
   pattern = { '*.js', '*.ts' },
   callback = function()
+    -- Save the file so that Prettier can access the most recent changes
+    vim.cmd 'write'
+
     -- Run Prettier on the file being saved
     local result = vim.fn.system('prettier --write --single-quote --jsx-single-quote --tab-width 8 ' .. vim.fn.expand '%:p')
     print(result)
+
+    -- Make sure Prettier encountered no errors
+    if vim.v.shell_error ~= 0 then
+      print('Error running Prettier: ' .. result)
+      return
+    end
 
     -- Reload the buffer to reflect Prettier's changes
     vim.cmd 'edit!'
