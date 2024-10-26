@@ -140,9 +140,9 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
--- Apply Prettier to JS/TS files upon saving
+-- Apply Prettier to JS/TS/JSX/TSX files upon saving
 vim.api.nvim_create_autocmd('BufWritePost', {
-  pattern = { '*.js', '*.ts' },
+  pattern = { '*.js', '*.ts', '*.jsx', '*.tsx' },
   callback = function()
     -- Save the file so that Prettier can access the most recent changes
     vim.cmd 'write'
