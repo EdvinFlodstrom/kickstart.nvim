@@ -148,7 +148,7 @@ vim.api.nvim_create_autocmd('BufWritePost', {
     vim.cmd 'write'
 
     -- Run Prettier on the file being saved
-    local result = vim.fn.system('prettier --write --single-quote --jsx-single-quote --tab-width 8 ' .. vim.fn.expand '%:p')
+    local result = vim.fn.system('prettier --write --single-quote --jsx-single-quote --tab-width 2 ' .. vim.fn.expand '%:p')
     print(result)
 
     -- Make sure Prettier encountered no errors
